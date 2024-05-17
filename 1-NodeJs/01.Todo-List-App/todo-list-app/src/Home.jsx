@@ -2,7 +2,8 @@ import { useState } from "react"
 import Create from "./Create"
 
 function Home() {
-    const [todos, setTodos] = useState([]);
+    // setTodos
+    const [todos ] = useState([]);
     return (
         <div>
             <h1>Todo List</h1>
