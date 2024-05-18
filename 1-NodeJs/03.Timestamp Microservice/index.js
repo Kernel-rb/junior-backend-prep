@@ -26,18 +26,23 @@ app.get("/api/hello", function (req, res) {
 
 app.get("/api/:date" , (req , res) => {
   try{
-    const date = req.params.date;
-    const  formatted_date = new Date(date);
+      const date = req.params.date;
+      let formatted_date;
+      if (/^\d+$/.test(date)) {
+          formatted_date = new Date(parseInt(date));
+      } else {
+          formatted_date = new Date(date);
+      }
     if (isNaN(formatted_date)) {
-      console.log("La date est invalide");
+        res.json({ "error": "Invalid Date" })
     } else {
       let unix = parseInt((formatted_date.getTime()).toFixed(0))
       let utc = formatted_date.toUTCString();
       res.json({"unix": `${unix}` , "utc":`${utc}`});
     }
-  }catch(err){
-    console.log("err a zbi");
-    return err;
+  } catch (err) {
+      console.error("Une erreur est survenue :", err.message);
+      res.status(500).json({ error: "Internal Server Error" });
   }
   
 });
