@@ -6,7 +6,6 @@ import adminRoutes from "./server/routes/adminRoutes.js";
 
 dotenv.config();
 
-// app : 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -15,15 +14,12 @@ app.use(express.static("public"));
 
 // EJS
 app.use(expressLayout);
-app.set("layout" , "./layouts/main");
-app.set("view engine", "ejs"); 
-
-
+app.set("view engine", "ejs");
+app.set("layout", "./layouts/main");
 
 // Routes
 app.use("/", mainRoutes);
 app.use("/admin", adminRoutes);
-
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
