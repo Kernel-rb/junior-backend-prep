@@ -24,29 +24,31 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-app.get("/api/:date" , (req , res) => {
-  try{
-      const date = req.params.date;
-      let formatted_date;
-      if (/^\d+$/.test(date)) {
-          formatted_date = new Date(parseInt(date));
-      } else {
-          formatted_date = new Date(date);
-      }
-    if (isNaN(formatted_date)) {
-        res.json({ "error": "Invalid Date" })
-    } else {
-      let unix = parseInt((formatted_date.getTime()).toFixed(0))
-      let utc = formatted_date.toUTCString();
-      res.json({"unix": `${unix}` , "utc":`${utc}`});
-    }
-  } catch (err) {
-      console.error("Une erreur est survenue :", err.message);
-      res.status(500).json({ error: "Internal Server Error" });
+const invalideDate = (formattedDate) => formattedDate.toUTCString() === "Invalid Date";
+
+app.get("/api/:date", (req, res) => {
+  const date = req.params.date;
+  let formattedDate = new Date(date);
+  if (invalideDate(formattedDate)) {
+    formattedDate = new Date(+date);
   }
-  
+  if (invalideDate(formattedDate)) {
+    res.json({ error: "Invalid Date" });
+    return;
+  }
+  res.json({
+    unix: formattedDate.getTime(),
+    utc: formattedDate.toUTCString()
+  });
 });
 
+app.get("/api", (req, res) => {
+  const date = new Date();
+  res.json({
+    unix: date.getTime(),
+    utc: date.toUTCString()
+  });
+});
 
 
 // Listen on port set in environment variable or default to 3000
