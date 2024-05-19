@@ -24,6 +24,7 @@ app.get('/api/hello', function (req, res) {
     res.json({ greeting: 'hello API' });
 });
 
+// Request Header Parser Microservice
 app.get("/api/whoami", (req, res) => {
     const ip_address = req.socket.remoteAddress;
     res.json({
