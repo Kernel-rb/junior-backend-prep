@@ -1,5 +1,5 @@
 const { test, expect } = require("@jest/globals")
-const { normalizeUrl } = require("./crawl.js")
+const { normalizeUrl , getURLsFromHTML } = require("./crawl.js")
 
 
 
@@ -30,3 +30,20 @@ test("normalizeUrl capitals ", () => {
     const expectedOuptut = "blog.boot.dev/path"
     expect(ouptut).toEqual(expectedOuptut);
 });
+
+
+test("Get urls from html", () => {
+    const inputHTMLBody = `
+    <html>
+        <body>
+            <a href="https://saifmatab.me">
+                My website
+            </a>
+        </body>
+    </html>
+    `
+    const inputBaseUrl = "https://saifmatab.me"
+    const ouptut = getURLsFromHTML(inputHTMLBody, inputBaseUrl );
+    const expectedOuptut = ["https://saifmatab.me"]
+    expect(ouptut).toEqual(expectedOuptut);
+})

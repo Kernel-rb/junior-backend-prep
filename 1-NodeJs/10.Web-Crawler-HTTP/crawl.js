@@ -1,11 +1,4 @@
-/*
-    - The role of normlize funct is to take a url string and return all other urls that point to the same page.
-    - for example:
-            -> http://www.example.com
-            -> https://www.example.com
-        
-*/
-
+const { JSDOM } = require("jsdom");
 
 function normalizeUrl(urlString) {
     const urlObj = new URL(urlString);
@@ -16,6 +9,23 @@ function normalizeUrl(urlString) {
     return hostPath.toLowerCase();
 }
 
+
+
+function getURLsFromHTML(htmlBody , baseURL) {
+    const urls = [];
+    const dom = new JSDOM(htmlBody);
+    const linkEl = dom.window.document.querySelectorAll('a');
+    console.log(linkEl.href);
+    for (const i in linkEl) {
+        console.log(linkEl.href);
+        urls.push(linkEl.href);
+
+    }
+    return urls
+    console.log(urls)
+}
+
 module.exports = {
-    normalizeUrl
+    normalizeUrl,
+    getURLsFromHTML
 }
