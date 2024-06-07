@@ -1,0 +1,33 @@
+# Byte-compiled / optimized Python files
+*.pyc
+__pycache__/
+
+# Python virtual environment
+venv/
+env/
+*/.env
+
+# Ignore Django's migration files
+*/migrations/
+
+# Secret key files
+*.key
+
+# Ignore local settings
+*/settings_local.py
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+
+# Ignore database files
+*.sqlite3
+
+# Ignore static files collected by Django
+/staticfiles/
+
+# Ignore logs
+/logs/
+
+# Ignore coverage reports
+.coverage
