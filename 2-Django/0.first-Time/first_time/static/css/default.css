@@ -119,4 +119,10 @@ section h1 {
 
 a { 
     text-decoration:  none;
+    color: coral;
+}
+
+
+.banner {
+    display: block;
 }
